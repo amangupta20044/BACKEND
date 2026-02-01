@@ -2,14 +2,10 @@
 const mongoose = require("mongoose");
 
 const noteSchema = new mongoose.Schema({
-    title: {
-        type: String,
-        required: true
-    },
-    description: {
-        type: String,
-        required: true
-    }
+    title: String,
+    description:String,
+    age: Number
+
 });
 
 const noteModel = mongoose.model("Note", noteSchema);
