@@ -47,3 +47,145 @@ html{
   color: #555;
   line-height: 1.5;
 }
+/* page center helper (optional) */
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #0f172a, #020617);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* 3D card */
+.note-create-form {
+  width: 100%;
+  max-width: 380px;
+  padding: 24px;
+  background: linear-gradient(145deg, #111827, #020617);
+  border-radius: 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+  transform-style: preserve-3d;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* 3D hover lift */
+.note-create-form:hover {
+  transform: translateY(-6px) rotateX(4deg);
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.8);
+}
+
+/* inputs */
+.note-create-form input {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+
+  background: #020617;
+  color: #e5e7eb;
+  font-size: 14px;
+
+  box-shadow:
+    inset 2px 2px 5px rgba(0, 0, 0, 0.8),
+    inset -2px -2px 5px rgba(255, 255, 255, 0.05);
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* input focus pop */
+.note-create-form input:focus {
+  transform: translateZ(8px);
+  box-shadow:
+    0 0 0 2px #6366f1,
+    inset 0 0 5px rgba(0, 0, 0, 0.6);
+}
+
+/* button */
+.delete-button {
+  margin-top: 8px;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+
+  background: linear-gradient(145deg, #6366f1, #4f46e5);
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+
+  box-shadow:
+    0 10px 20px rgba(79, 70, 229, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* button press effect */
+.note-create-form button:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 14px 28px rgba(79, 70, 229, 0.8);
+}
+
+.note-create-form button:active {
+  transform: translateY(1px);
+  box-shadow:
+    0 6px 14px rgba(79, 70, 229, 0.6);
+}
+.btn-3d-delete {
+  background: linear-gradient(145deg, #ff4b4b, #d60000);
+  color: #fff;
+  border: none;
+  padding: 12px 28px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+
+  /* 3D effect */
+  box-shadow:
+    0 6px 0 #9e0000,
+    0 12px 20px rgba(0, 0, 0, 0.3);
+
+  transition: all 0.15s ease-in-out;
+}
+
+/* Hover effect */
+.btn-3d-delete:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 0 #9e0000,
+    0 16px 25px rgba(0, 0, 0, 0.35);
+}
+
+/* Pressed effect */
+.btn-3d-delete:active {
+  transform: translateY(4px);
+  box-shadow:
+    0 2px 0 #9e0000,
+    0 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* mobile responsiveness */
+@media (max-width: 480px) {
+  .note-create-form {
+    padding: 20px;
+    border-radius: 14px;
+  }
+
+  .note-create-form input,
+  .note-create-form button {
+    font-size: 14px;
+  }
+}
+
