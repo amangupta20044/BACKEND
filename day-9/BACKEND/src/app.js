@@ -8,9 +8,13 @@ const app = express()
 
 const cors = require('cors')
 
+const path = require("path")
+
 app.use(express.json())// middlewaare
 
 app.use(cors())
+
+app.use(express.static("./public"))// Ye middleware frontend ki files (HTML, CSS, JS, images) ko browser tak pahunchata hai.
 
 app.post('/api/notes',async(req,res)=>{
     const {title,description} = req.body
@@ -82,5 +86,9 @@ app.patch('/api/notes/:id', async (req, res) => {
         });
     }
 });
+
+app.use('*name',(req,res)=>{// *name-- ye un api ko handle karega jisko tm nahi create kiye ho
+    res.sendFile(path.join(__dirname,"..","/public/index.html"));
+})
 
 module.exports = app;

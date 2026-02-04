@@ -3,92 +3,114 @@ import axios from 'axios'
 import './App.css'
 
 function App() {
+
+  // state
   const [notes, setNotes] = useState([])
   const [editId, setEditId] = useState(null)
-  const [formData, setFormData] = useState({
-    title: "",
-    description: ""
-  })
 
+
+  // fetch all notes
   function fetchNotes() {
-    axios.get("http://localhost:3000/api/notes")
-      .then(res => {
+    axios
+      .get("http://localhost:3000/api/notes")
+      .then((res) => {
         setNotes(res.data.notes)
       })
   }
 
+  // run once on page load
   useEffect(() => {
     fetchNotes()
   }, [])
 
+  // create note
+
   function handleSubmit(e) {
     e.preventDefault()
 
+    const { title, description } = e.target.elements
+
     if (editId) {
-      // ✅ UPDATE (PATCH)
-      axios.patch(`http://localhost:3000/api/notes/${editId}`, formData)
-        .then(() => {
-          fetchNotes()
+      // 🟡 UPDATE (PATCH)
+      axios.patch("http://localhost:3000/api/notes/" + editId, {
+        title: title.value,
+        description: description.value
+      })
+        .then(res => {
+          console.log("updated", res.data)
           setEditId(null)
-          setFormData({ title: "", description: "" })
-        })
-    } else {
-      // CREATE
-      axios.post("http://localhost:3000/api/notes", formData)
-        .then(() => {
           fetchNotes()
-          setFormData({ title: "", description: "" })
+          e.target.reset()
+        })
+
+    } else {
+      // 🟢 CREATE (POST)
+      axios.post("http://localhost:3000/api/notes", {
+        title: title.value,
+        description: description.value
+      })
+        .then(res => {
+          console.log("created", res.data)
+          fetchNotes()
+          e.target.reset()
         })
     }
   }
 
-  function handleDelete(noteId) {
-    axios.delete("http://localhost:3000/api/notes/" + noteId)
-      .then(() => fetchNotes())
-  }
 
-  function handleEdit(note) {
-    setEditId(note._id)
-    setFormData({
-      title: note.title,
-      description: note.description
-    })
+  // delete note
+  function handleDelete(noteId) {
+    axios
+      .delete(`http://localhost:3000/api/notes/${noteId}`)
+      .then((res) => {
+        console.log(res.data)
+        fetchNotes()
+      })
   }
 
   return (
     <>
-      <form className='note-create-form' onSubmit={handleSubmit}>
+      {/* Create Note Form */}
+      <form className="note-create-form" onSubmit={handleSubmit}>
         <input
+          name="title"
           type="text"
-          placeholder='enter title'
-          value={formData.title}
-          onChange={(e) =>
-            setFormData({ ...formData, title: e.target.value })
-          }
+          placeholder="enter title"
         />
-
         <input
+          name="description"
           type="text"
-          placeholder='enter description'
-          value={formData.description}
-          onChange={(e) =>
-            setFormData({ ...formData, description: e.target.value })
-          }
+          placeholder="enter description"
         />
-
-        <button type="submit">
+        <button>
           {editId ? "Update Note" : "Create Note"}
         </button>
+
       </form>
 
+      {/* Notes List */}
       <div className="notes">
         {notes.map((note) => (
           <div className="note" key={note._id}>
             <h1>{note.title}</h1>
             <p>{note.description}</p>
 
-            <button onClick={() => handleEdit(note)}>Edit</button>
-            <button onClick={() => handleDelete(note._id)}>Delete</button>
+            <button
+              className="delete-button"
+              onClick={() => handleDelete(note._id)}
+            >
+              Delete
+            </button>
+            {/* edit button */}
+            <button className='edit' onClick={() => {
+              setEditId(note._id)
+              document.querySelector("input[name='title']").value = note.title
+              document.querySelector("input[name='description']").value = note.description
+            }}>
+              Edit
+            </button>
+
+
           </div>
         ))}
       </div>

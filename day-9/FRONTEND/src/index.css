@@ -1,19 +1,22 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 html,
 body,
-#root{
+#root {
   height: 100%;
   width: 100%;
 }
-html{
+
+html {
   background-color: rgba(0, 0, 0, 0.925);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
-} 
+}
+
 .notes {
   width: 90%;
   max-width: 900px;
@@ -29,6 +32,7 @@ html{
   border-radius: 10px;
   box-shadow: 0 10px 25px rgb(180, 170, 170);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+ 
 }
 
 .note:hover {
@@ -47,6 +51,7 @@ html{
   color: #555;
   line-height: 1.5;
 }
+
 /* page center helper (optional) */
 body {
   min-height: 100vh;
@@ -142,6 +147,7 @@ body {
   box-shadow:
     0 6px 14px rgba(79, 70, 229, 0.6);
 }
+
 .btn-3d-delete {
   background: linear-gradient(145deg, #ff4b4b, #d60000);
   color: #fff;
@@ -176,6 +182,48 @@ body {
     0 6px 10px rgba(0, 0, 0, 0.3);
 }
 
+.edit {
+  background: linear-gradient(145deg, #4f8cff, #1e5eff);
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+
+  /* 3D depth */
+  box-shadow:
+    0 6px 0 #153fb5,
+    0 12px 18px rgba(0, 0, 0, 0.25);
+
+  transition: all 0.15s ease;
+}
+
+/* Hover = lift */
+.btn-3d-edit:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 0 #153fb5,
+    0 16px 22px rgba(0, 0, 0, 0.3);
+}
+
+/* Pressed */
+.btn-3d-edit:active {
+  transform: translateY(4px);
+  box-shadow:
+    0 2px 0 #153fb5,
+    0 6px 10px rgba(0, 0, 0, 0.25);
+}
+
+/* Focus (accessibility) */
+.btn-3d-edit:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(79, 140, 255, 0.4),
+    0 6px 0 #153fb5;
+}
+
 /* mobile responsiveness */
 @media (max-width: 480px) {
   .note-create-form {
@@ -188,4 +236,3 @@ body {
     font-size: 14px;
   }
 }
-
